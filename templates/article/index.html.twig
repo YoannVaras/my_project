@@ -35,6 +35,12 @@
 		</ul>
 	</div>
 
+	{% if repository is defined %}
+		{% for rep in repository %}
+			{{rep.getLibelle}}
+		{% endfor %}
+	{% endif %}
+	
 	{% if articles is defined %}
 		{% for art in articles %}
 
@@ -46,4 +52,5 @@
 		{{error}}
 	{% endif %}
 
+	
 {% endblock %}

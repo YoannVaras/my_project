@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
+ * @UniqueEntity("libelle")
  */
 class Article
 {
@@ -17,7 +19,7 @@ class Article
     private $id;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", length=255, unique=true)
      */
     private $libelle;
 

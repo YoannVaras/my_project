@@ -10,26 +10,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ArticleController extends AbstractController
 {
-    /**
-     * @Route("/article", name="article")
+        /**
+     * @Route("/produits")
      */
     public function index()
     {
-        // you can fetch the EntityManager via $this->getDoctrine()
-        // or you can add an argument to the action: index(EntityManagerInterface $entityManager)
-        $entityManager = $this->getDoctrine()->getManager();
-        $article = new Article();
-        $article->setLibelle('pomme');
-        $article1 = new Article();
-        $article1->setLibelle('banane');
-        // tell Doctrine you want to (eventually) save the article (no queries yet)
-        $entityManager->persist($article);
-        $entityManager->persist($article1);
-
-        // actually executes the queries (i.e. the INSERT query)
-        $entityManager->flush();
-        return $this->render('article/index.html.twig', [ 'controller_name' => 'ArticleController', 'article' => $article,
-        ] );
+        $repository = $this->getDoctrine()->getRepository(Article::class)->findAll();
+        return $this->render('article/index.html.twig', ['controller_name' => 'ArticlesController', 'repository' => $repository]);
     }
 
         /**
@@ -71,12 +58,23 @@ class ArticleController extends AbstractController
      */
     public function ShowAll()
     {
-        $produits =$this->getDoctrine()->getRepository(Article::class)->findAll();
-           var_dump($produits); 
-           foreach($produits as $produit)
-            {
-                return new Response ('Nos produits : '.$produit->getLibelle());
-                
-            }
+        $repository = $this->getDoctrine()->getRepository(Article::class)->findAll();
+        return $this->render('article/index.html.twig', ['controller_name' => 'ArticlesController', 'repository' => $repository]);
+    }
+
+            /**
+     * @Route("/fill")
+     */
+    public function New()
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $produit1 = new Article();
+        $produit2 = new Article();
+        $produit1->setLibelle('Clavier');
+        $produit2->setLibelle('Souris');
+        $entityManager->persist($produit1);
+        $entityManager->persist($produit2);
+        $entityManager->flush();
+        return new Response('Produit ajouté ! Nom : ' . $produit1->getLibelle() . ' et ' . $produit2->getLibelle());
     }
 }

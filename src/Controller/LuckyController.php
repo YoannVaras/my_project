@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class LuckyController extends AbstractController
 {
      /**
-      * @Route("/lucky/{slug}")
+      * @Route("/lucky")
       */
     public function number()
     {
