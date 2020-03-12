@@ -19,7 +19,7 @@ class Article
     private $id;
 
     /**
-     * @ORM\Column(type="text", length=255, unique=true)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $libelle;
 
